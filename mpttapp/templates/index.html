@@ -1,15 +1,22 @@
-
 <div class="container">
     <h1>Welcome In!</h1>
     <h2>Am I authenticated? {{ request.user.is_authenticated }}</h2>
 
-    {% if not post %}
-        <h1>The post you are looking for does not exist!</h1>
-    {% else %}
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.body }}</p>
-    {% endif %}
     <a href="/folder_form/"><input class="Folderform" type="button" value="add folder"></a>
     <a href="/login/"><input type="button" value="login"></a>
     <a href="/logout/"><input type="button" value="logout"></a>
+
+    {% load mptt_tags %}
+    <ul>
+        {% recursetree post %}
+            <li>
+                {{ node.name }}
+                {% if not node.is_leaf_node %}
+                    <ul class="children">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endrecursetree %}
+    </ul>
 </div>
