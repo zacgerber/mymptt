@@ -16,6 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from mpttapp import views
+
 urlpatterns = [
+    path('', views.index, name="homepage"),
+    path('post/<int:post_id>/', views.post_detail),
+    path('folder_form/', views.folder_form),
+    path('login/', views.login_view, name="loginview"),
+    path('logout/', views.logout_view, name="logoutview"),
     path('admin/', admin.site.urls),
 ]
